@@ -15,7 +15,9 @@ export default function RootLayout({ children }: LayoutProps) {
       <body>
         <ClerkProvider>
           <Navbar />
-          <main>{children}</main>
+          <main className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center gap-4">
+            {children}
+          </main>
         </ClerkProvider>
       </body>
     </html>
