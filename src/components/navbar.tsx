@@ -3,7 +3,7 @@
 import type React from "react";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,11 +24,9 @@ const categories = [
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,7 +93,6 @@ const Navbar = () => {
                 <span className="sr-only">Search</span>
               </Button>
             </form>
-
             <SignedIn>
               <UserButton />
             </SignedIn>

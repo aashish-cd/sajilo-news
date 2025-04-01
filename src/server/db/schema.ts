@@ -30,6 +30,7 @@ export const users = createTable("users", (d) => ({
   firstName: d.varchar("first_name", { length: 100 }),
   lastName: d.varchar("last_name", { length: 100 }),
   bio: d.text("bio"),
+  category: d.varchar("category", { length: 255 }).references(() => categories.id),
   avatar: d.varchar("avatar", { length: 255 }),
   isVerified: d.boolean("is_verified").default(false).notNull(),
   createdAt: d.timestamp("created_at", { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
