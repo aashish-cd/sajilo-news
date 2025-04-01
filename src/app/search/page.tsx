@@ -1,6 +1,7 @@
 import ArticleList from "@/components/article-list";
 import Pagination from "@/components/paginations";
 import { db } from "~/server/db";
+import { searchArticles } from "~/server/queries";
 
 export default async function SearchPage({
   searchParams,
@@ -10,7 +11,7 @@ export default async function SearchPage({
   const { q: query, page } = await searchParams;
 
   const pageNo = parseInt(page || "1", 10);
-  const articles = await db.query.articles.findMany({});
+  const articles = await searchArticles(query);
 
   return (
     <div>

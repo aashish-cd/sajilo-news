@@ -7,7 +7,7 @@ import { RelatedArticles } from "@/components/related-articles";
 import { ReadingProgressBar } from "@/components/reading-progress-bar";
 import ShareButtons from "@/components/share-buttons";
 import { formatDate } from "@/lib/utils";
-import { db } from "~/server/db";
+import { getArticleBySlug } from "~/server/queries";
 
 export default async function ArticlePage({
   params,
@@ -15,9 +15,8 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await db.query.articles.findFirst({
-    // slug,
-  });
+  const article = await getArticleBySlug(slug);
+
   console.log("article", article);
   if (!article) {
     return <div>Article not found</div>;
