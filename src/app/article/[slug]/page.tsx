@@ -1,0 +1,83 @@
+import { CalendarIcon, Clock } from "lucide-react";
+import readingTime from "reading-time";
+
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { RelatedArticles } from "@/components/related-articles";
+import { ReadingProgressBar } from "@/components/reading-progress-bar";
+import ShareButtons from "@/components/share-buttons";
+import { formatDate } from "@/lib/utils";
+import { db } from "~/server/db";
+
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const article = await db.query.articles.findFirst({
+    // slug,
+  });
+  console.log("article", article);
+  if (!article) {
+    return <div>Article not found</div>;
+  }
+
+  return (
+    <>
+      <ReadingProgressBar />
+      <main className="bg-background min-h-screen">
+        <article className="container mx-auto max-w-4xl px-4 py-8 md:py-12">
+          {/* Article Header */}
+          <header className="mb-8 md:mb-12">
+            <div className="mb-4 flex items-center gap-2">
+              <Badge className="bg-primary/10 text-primary hover:bg-primary/20 px-2 py-0.5">
+                {article.category ?? "News"}
+              </Badge>
+              <div className="text-muted-foreground flex items-center text-sm">
+                <CalendarIcon className="mr-1 h-3 w-3" />
+                <time dateTime="2023-04-01">
+                  {formatDate(article.createdAt.toDateString())}
+                </time>
+              </div>
+              <div className="text-muted-foreground flex items-center text-sm">
+                <Clock className="mr-1 h-3 w-3" />
+                <span>{readingTime(article.content).text}</span>
+              </div>
+            </div>
+
+            <h1 className="mb-6 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+              {article.title}
+            </h1>
+
+            <p className="text-muted-foreground mb-6 text-xl">
+              {article.excerpt}
+            </p>
+          </header>
+
+          {/* Article Content */}
+          <div
+            className="prose prose-lg dark:prose-invert mb-12 max-w-none"
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
+
+          {/* Article Footer */}
+          <footer className="mt-8 md:mt-12">
+            <Separator className="mb-8" />
+
+            {/* Social Sharing */}
+            <ShareButtons
+              url={`/article/${article.slug}`}
+              title={article.title}
+            />
+            <Separator className="my-8" />
+
+            {/* Related Articles */}
+            <h2 className="mb-6 text-2xl font-bold">Related Articles</h2>
+            <RelatedArticles id={article.slug} />
+          </footer>
+        </article>
+      </main>
+    </>
+  );
+}

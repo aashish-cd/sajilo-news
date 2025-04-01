@@ -59,6 +59,9 @@ importers:
       react-share:
         specifier: ^5.2.2
         version: 5.2.2(react@19.1.0)
+      reading-time:
+        specifier: ^1.5.0
+        version: 1.5.0
       sonner:
         specifier: ^2.0.2
         version: 2.0.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -2491,6 +2494,9 @@ packages:
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
     engines: {node: '>=0.10.0'}
+
+  reading-time@1.5.0:
+    resolution: {integrity: sha512-onYyVhBNr4CmAxFsKS7bz+uTLRakypIe4R+5A824vBSkQy/hB3fZepoVEf8OVAxzLvK+H/jm9TzpI3ETSm64Kg==}
 
   reflect.getprototypeof@1.0.10:
     resolution: {integrity: sha512-00o4I+DVrefhv+nX0ulyi3biSHCPDe+yLv5o/p6d/UVlirijB8E16FtfwSAi4g3tcqrQ4lRAqQSoFEZJehYEcw==}
@@ -5066,6 +5072,8 @@ snapshots:
       '@types/react': 19.0.12
 
   react@19.1.0: {}
+
+  reading-time@1.5.0: {}
 
   reflect.getprototypeof@1.0.10:
     dependencies:

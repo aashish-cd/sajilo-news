@@ -14,7 +14,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## To Do
 
-[ ] Set up the database infrastructure using the Prisma schema and configure PostgreSQL [vercel postgres]
+[x] Set up the database infrastructure using the Prisma schema and configure PostgreSQL [vercel postgres]
 [ ] Implement user authentication system with registration, login, and role-based permissions [clerk]
 [ ] Create the user profile management system including profile editing and avatar uploads
 [ ] Develop the article creation interface with rich text editor and image upload functionality [uploadthings for images]

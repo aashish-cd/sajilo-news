@@ -3,19 +3,20 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { CalendarIcon } from "lucide-react";
 
-import { articles, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { db } from "~/server/db";
 
 export async function RelatedArticles({ id }: { id: string }) {
-  const relatedArticles = articles;
+  const relatedArticles = await db.query.articles.findMany({});
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
       {relatedArticles.map((article) => (
-        <div key={article._id.$oid} className="group">
-          <Link href={`/article/${article._id}`} className="block">
+        <div key={article.slug} className="group">
+          <Link href={`/article/${article.slug}`} className="block">
             <div className="relative mb-3 aspect-video overflow-hidden rounded-lg">
               <Image
-                src={article.image || "/placeholder.svg"}
+                src={article.coverImage || "/placeholder.svg"}
                 alt={article.title}
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                 fill
@@ -23,13 +24,12 @@ export async function RelatedArticles({ id }: { id: string }) {
             </div>
             <div className="mb-2 flex items-center gap-2">
               <Badge className="bg-primary/10 text-primary hover:bg-primary/20 px-2 py-0.5">
-                {article.category.charAt(0).toUpperCase() +
-                  article.category.slice(1)}
+                {article.category ?? "News"}
               </Badge>
               <div className="text-muted-foreground flex items-center text-sm">
                 <CalendarIcon className="mr-1 h-3 w-3" />
-                <time dateTime={article.publishedAt.$date}>
-                  {formatDate(article.publishedAt.$date)}
+                <time dateTime={article.createdAt.toDateString()}>
+                  {formatDate(article.createdAt.toDateString())}
                 </time>
               </div>
             </div>

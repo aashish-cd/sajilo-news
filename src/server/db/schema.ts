@@ -13,7 +13,7 @@ import { index, pgEnum, pgTableCreator } from "drizzle-orm/pg-core";
 export const createTable = pgTableCreator((name) => `sajilo-news_${name}`);
 
 // Enums
-export const roleEnum = pgEnum('role', ['USER', 'EDITOR', 'ADMIN']);
+export const roleEnum = pgEnum('role', ['EDITOR', 'ADMIN']);
 export const notificationTypeEnum = pgEnum('notification_type', [
   'LIKE',
   'COMMENT',
@@ -30,7 +30,6 @@ export const users = createTable("users", (d) => ({
   firstName: d.varchar("first_name", { length: 100 }),
   lastName: d.varchar("last_name", { length: 100 }),
   bio: d.text("bio"),
-  category: d.varchar("category", { length: 255 }).references(() => categories.id),
   avatar: d.varchar("avatar", { length: 255 }),
   isVerified: d.boolean("is_verified").default(false).notNull(),
   createdAt: d.timestamp("created_at", { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
@@ -47,6 +46,7 @@ export const articles = createTable("articles", (d) => ({
   published: d.boolean("published").default(false).notNull(),
   featured: d.boolean("featured").default(false).notNull(),
   viewCount: d.integer("view_count").default(0).notNull(),
+  category: d.varchar("category", { length: 255 }).references(() => categories.id),
   createdAt: d.timestamp("created_at", { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
   authorId: d.integer("author_id").notNull().references(() => users.id),
 }), (t) => [
