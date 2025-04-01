@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 import { Toaster } from "~/components/ui/sonner";
+import Footer from "~/components/footer";
 
 type LayoutProps = {
   children: ReactNode;
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: LayoutProps) {
           <Navbar />
 
           <main className="container mx-auto px-4 py-8">{children}</main>
+          <Footer />
           <Toaster />
         </ClerkProvider>
       </body>
