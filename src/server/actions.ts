@@ -3,7 +3,7 @@
 import 'server-only'
 
 import { auth } from '@clerk/nextjs/server';
-// import { revalidatePath } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 import { db } from "./db";
 import { articles } from './db/schema';
@@ -33,7 +33,7 @@ export async function createArticle(data: any) {
             authorId: data.authorId,
         })
 
-        // revalidatePath("/articles")
+        revalidatePath("/")
         return { success: true }
     } catch (error) {
         console.error("Failed to create article:", error)

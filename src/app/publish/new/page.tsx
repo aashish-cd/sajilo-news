@@ -90,7 +90,7 @@ export default function NewArticle() {
         description: "Article created successfully",
       });
 
-      router.push("/articles");
+      router.push("/");
       router.refresh();
     } catch (error) {
       console.error("Failed to create article:", error);
