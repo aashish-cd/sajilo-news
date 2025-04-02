@@ -9,7 +9,7 @@ type ArticleCardProps = {
   article: any;
 };
 
-export function ArticleCard({ article }) {
+export function ArticleCard({ article }: ArticleCardProps) {
   // const categoryLabel =
   //     article.category.charAt(0).toUpperCase() + article.category.slice(1);
 
@@ -35,11 +35,11 @@ export function ArticleCard({ article }) {
             </time>
           </div>
         </div>
-        <h3 className="mb-2 line-clamp-2 text-xl font-bold">
+        <h3 className="mb-1 line-clamp-2 text-xl font-bold">
           <Link href={`/article/${article.slug}`}>{article.title}</Link>
         </h3>
-        <p className="text-muted-foreground mb-4 line-clamp-3">
-          {article.content}
+        <p className="text-muted-foreground mb-2 line-clamp-3">
+          {article.excerpt}
         </p>
       </CardContent>
       <CardFooter className="px-5 pt-0 pb-5">

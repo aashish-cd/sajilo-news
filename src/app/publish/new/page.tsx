@@ -4,9 +4,12 @@ import type React from "react";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import {
   Card,
   CardContent,
@@ -14,7 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
   SelectContent,
@@ -22,57 +24,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Save, Loader2 } from "lucide-react";
+import { ArrowLeft, Save, Loader2, ImageIcon } from "lucide-react";
 import Link from "next/link";
-// import { RichTextEditor } from "@/components/admin/rich-text-editor";
-// import { ArticlePreview } from "@/components/admin/article-preview";
 import { toast } from "sonner";
-import { UploadButton } from "~/utils/uploadthing";
+import RichTextEditor from "@/components/rich-text-editor";
+import { slugify } from "@/lib/utils";
+import { createArticle } from "~/server/actions";
 
 export default function NewArticle() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [excerpt, setExcerpt] = useState("");
   const [category, setCategory] = useState("");
-  const [categories] = useState<{ _id: string; name: string }[]>([]);
-  const [featuredImage, setFeaturedImage] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const [published, setPublished] = useState(false);
+  const [featured, setFeatured] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoading] = useState(true);
   const router = useRouter();
+  const { user, isLoaded } = useUser();
 
-  // Fetch categories on component mount
-  // useEffect(() => {
-  //     const fetchCategories = async () => {
-  //         try {
-  //             const response = await fetch('/api/admin/categories');
-  //             if (response.ok) {
-  //                 const data = await response.json();
-  //                 setCategories(data);
-  //             }
-  //         } catch (error) {
-  //             console.error('Failed to fetch categories:', error);
-  //             toast({
-  //                 title: 'Error',
-  //                 description: 'Failed to load categories',
-  //                 variant: 'destructive',
-  //             });
-  //         } finally {
-  //             setIsLoading(false);
-  //         }
-  //     };
-
-  //     // Simulate fetching categories
-  //     setTimeout(() => {
-  //         setCategories([
-  //             { _id: '1', name: 'Technology' },
-  //             { _id: '2', name: 'Health' },
-  //             { _id: '3', name: 'Business' },
-  //             { _id: '4', name: 'Science' },
-  //             { _id: '5', name: 'Politics' },
-  //             { _id: '6', name: 'Entertainment' },
-  //         ]);
-  //         setIsLoading(false);
-  //     }, 500);
-  // }, []);
+  // Mock categories for demo purposes
+  const categories = [
+    { id: "technology", name: "Technology" },
+    { id: "business", name: "Business" },
+    { id: "health", name: "Health" },
+    { id: "science", name: "Science" },
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,45 +61,37 @@ export default function NewArticle() {
       return;
     }
 
-    setIsSubmitting(true);
-    const token = localStorage.getItem("token");
-
-    if (!token) {
+    if (!isLoaded || !user) {
       toast.error("Authentication Error", {
         description: "You must be logged in to create an article",
       });
-      router.push("/login");
+      router.push("/sign-in");
       return;
     }
 
-    try {
-      // In a real app, you would get the author ID from your auth system
-      const authorId = "current-user-id";
+    setIsSubmitting(true);
 
-      const response = await fetch("/api/articles", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title,
-          content,
-          category,
-          featuredImage,
-          authorId,
-        }),
+    try {
+      const slug = slugify(title);
+
+      await createArticle({
+        title,
+        slug,
+        content,
+        excerpt: excerpt || title.substring(0, 150),
+        coverImage,
+        published,
+        featured,
+        category,
+        authorId: user.id,
       });
 
-      if (response.ok) {
-        toast.success("Success", {
-          description: "Article created successfully",
-        });
-        router.push("/admin");
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to create article");
-      }
+      toast.success("Success", {
+        description: "Article created successfully",
+      });
+
+      router.push("/articles");
+      router.refresh();
     } catch (error) {
       console.error("Failed to create article:", error);
       toast.error("Error", {
@@ -135,12 +104,12 @@ export default function NewArticle() {
   };
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-10">
+    <div className="container mx-auto max-w-5xl px-4 py-6">
       <div className="mb-6 flex items-center">
         <Button variant="ghost" size="sm" asChild className="mr-4">
-          <Link href="/admin">
+          <Link href="/articles">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Admin
+            Back to Articles
           </Link>
         </Button>
         <h1 className="text-3xl font-bold tracking-tight">
@@ -170,18 +139,25 @@ export default function NewArticle() {
               </div>
 
               <div className="space-y-2">
+                <Label htmlFor="excerpt">Excerpt</Label>
+                <Textarea
+                  id="excerpt"
+                  value={excerpt}
+                  onChange={(e) => setExcerpt(e.target.value)}
+                  placeholder="Brief summary of the article (optional)"
+                  rows={3}
+                />
+              </div>
+
+              <div className="space-y-2">
                 <Label htmlFor="category">Category</Label>
-                <Select
-                  value={category}
-                  onValueChange={setCategory}
-                  disabled={isLoading}
-                >
+                <Select value={category} onValueChange={setCategory}>
                   <SelectTrigger id="category">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
                     {categories.map((cat) => (
-                      <SelectItem key={cat._id} value={cat.name}>
+                      <SelectItem key={cat.id} value={cat.id}>
                         {cat.name}
                       </SelectItem>
                     ))}
@@ -190,11 +166,45 @@ export default function NewArticle() {
               </div>
 
               <div className="space-y-2">
-                <Label>Featured Image</Label>
-                <UploadButton
-                  endpoint={"imageUploader"}
-                  //   onClientUploadComplete={setFeaturedImage}
-                />
+                <Label htmlFor="coverImage">Cover Image URL</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="coverImage"
+                    value={coverImage}
+                    onChange={(e) => setCoverImage(e.target.value)}
+                    placeholder="https://example.com/image.jpg"
+                  />
+                  {coverImage && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      onClick={() => window.open(coverImage, "_blank")}
+                    >
+                      <ImageIcon className="h-4 w-4" />
+                    </Button>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4 sm:flex-row sm:gap-8">
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="published"
+                    checked={published}
+                    onCheckedChange={setPublished}
+                  />
+                  <Label htmlFor="published">Publish immediately</Label>
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="featured"
+                    checked={featured}
+                    onCheckedChange={setFeatured}
+                  />
+                  <Label htmlFor="featured">Featured article</Label>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -207,23 +217,7 @@ export default function NewArticle() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="editor" className="w-full">
-                <TabsList className="mb-4 grid w-full grid-cols-2">
-                  <TabsTrigger value="editor">Editor</TabsTrigger>
-                  <TabsTrigger value="preview">Preview</TabsTrigger>
-                </TabsList>
-                {/* <TabsContent value="editor">
-                  <RichTextEditor value={content} onChange={setContent} />
-                </TabsContent>
-                <TabsContent value="preview">
-                  <ArticlePreview
-                    title={title}
-                    content={content}
-                    category={category}
-                    featuredImage={featuredImage}
-                  />
-                </TabsContent> */}
-              </Tabs>
+              <RichTextEditor initialContent={content} onChange={setContent} />
             </CardContent>
           </Card>
         </div>
@@ -232,7 +226,7 @@ export default function NewArticle() {
           <Button
             variant="outline"
             type="button"
-            onClick={() => router.push("/admin")}
+            onClick={() => router.push("/articles")}
           >
             Cancel
           </Button>
@@ -245,7 +239,7 @@ export default function NewArticle() {
             ) : (
               <>
                 <Save className="mr-2 h-4 w-4" />
-                Publish Article
+                {published ? "Publish" : "Save Draft"}
               </>
             )}
           </Button>

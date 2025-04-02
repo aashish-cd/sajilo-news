@@ -48,7 +48,7 @@ export const articles = createTable("articles", (d) => ({
   viewCount: d.integer("view_count").default(0).notNull(),
   category: d.varchar("category", { length: 255 }).references(() => categories.id),
   createdAt: d.timestamp("created_at", { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-  authorId: d.integer("author_id").notNull().references(() => users.id),
+  authorId: d.varchar("author_id").notNull().references(() => users.id),
 }), (t) => [
   index("slug_idx").on(t.slug),
   index("author_id_idx").on(t.authorId)
