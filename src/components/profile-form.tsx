@@ -90,7 +90,7 @@ export function ProfileForm({
     setIsSubmitting(true);
 
     const res = await updateUser(data);
-    console.log("res", res);
+
     if (res.acknowledged) {
       setIsSubmitting(false);
       toast({
@@ -105,7 +105,6 @@ export function ProfileForm({
       description: "Failed to update profile. Please try again.",
       variant: "destructive",
     });
-    console.log(data);
   }
 
   return (

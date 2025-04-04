@@ -17,7 +17,6 @@ export default async function ArticlePage({
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
 
-  console.log("article", article);
   if (!article) {
     return <div>Article not found</div>;
   }
@@ -53,6 +52,11 @@ export default async function ArticlePage({
               {article.excerpt}
             </p>
           </header>
+          <img
+            src={article.coverImage || "/placeholder.svg"}
+            alt={article.title}
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
 
           {/* Article Content */}
           <div

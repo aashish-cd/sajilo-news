@@ -9,7 +9,7 @@ import { Facebook, Twitter, Linkedin } from "lucide-react";
 
 const ShareButtons = ({ url, title }: { url: string; title: string }) => {
   const fullUrl = `${process.env.NEXT_PUBLIC_BASE_URL}${url}`;
-  console.log("fullUrl", fullUrl);
+
   return (
     <div className="flex items-center gap-2">
       <FacebookShareButton url={fullUrl} title={title}>
