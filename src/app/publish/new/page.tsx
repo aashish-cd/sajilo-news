@@ -30,6 +30,7 @@ import { toast } from "sonner";
 import RichTextEditor from "@/components/rich-text-editor";
 import { slugify } from "@/lib/utils";
 import { createArticle } from "~/server/actions";
+import { UploadButton, UploadDropzone } from "~/utils/uploadthing";
 
 export default function NewArticle() {
   const [title, setTitle] = useState("");
@@ -117,7 +118,7 @@ export default function NewArticle() {
         </h1>
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <div>
         <div className="mb-6 grid gap-6">
           <Card>
             <CardHeader>
@@ -166,14 +167,16 @@ export default function NewArticle() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="coverImage">Cover Image URL</Label>
+                <Label htmlFor="coverImage">Upload Cover</Label>
                 <div className="flex gap-2">
-                  <Input
-                    id="coverImage"
-                    value={coverImage}
-                    onChange={(e) => setCoverImage(e.target.value)}
-                    placeholder="https://example.com/image.jpg"
+                  <UploadButton
+                    endpoint={"imageUploader"}
+                    onClientUploadComplete={(res) => {
+                      const ufsUrl = res[0]?.ufsUrl;
+                      setCoverImage(ufsUrl!);
+                    }}
                   />
+
                   {coverImage && (
                     <Button
                       type="button"
@@ -230,7 +233,7 @@ export default function NewArticle() {
           >
             Cancel
           </Button>
-          <Button type="submit" disabled={isSubmitting}>
+          <Button type="button" onClick={handleSubmit} disabled={isSubmitting}>
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -244,7 +247,7 @@ export default function NewArticle() {
             )}
           </Button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

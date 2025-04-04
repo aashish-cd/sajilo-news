@@ -5,7 +5,6 @@ import Navbar from "@/components/navbar";
 import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
-// import "@uploadthing/react/styles.css";
 
 import { Toaster } from "~/components/ui/sonner";
 import Footer from "~/components/footer";

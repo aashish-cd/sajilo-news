@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { CalendarIcon } from "lucide-react";
 
 import { formatDate } from "@/lib/utils";
-import { db } from "~/server/db";
+import { Badge } from "@/components/ui/badge";
+import { getRelatedArticles } from "~/server/queries";
 
 export async function RelatedArticles({ id }: { id: string }) {
-  const relatedArticles = await db.query.articles.findMany({});
+  const relatedArticles = await getRelatedArticles(id);
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

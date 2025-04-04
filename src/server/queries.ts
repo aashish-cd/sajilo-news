@@ -11,6 +11,7 @@ export const getArticles = async () => {
 export const getRelatedArticles = async (slug: string) => {
     const articles = await db.query.articles.findMany({
         where: (model, { ilike }) => ilike(model.slug, slug),
+        limit: 3,
     })
     return articles;
 }
