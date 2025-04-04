@@ -1,10 +1,13 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
+import { ArrowLeft, Save, Loader2, ImageIcon } from "lucide-react";
+import Link from "next/link";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,13 +27,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Save, Loader2, ImageIcon } from "lucide-react";
-import Link from "next/link";
-import { toast } from "sonner";
 import RichTextEditor from "@/components/rich-text-editor";
 import { slugify } from "@/lib/utils";
 import { createArticle } from "~/server/actions";
-import { UploadButton, UploadDropzone } from "~/utils/uploadthing";
+import { UploadButton } from "~/utils/uploadthing";
 
 export default function NewArticle() {
   const [title, setTitle] = useState("");
