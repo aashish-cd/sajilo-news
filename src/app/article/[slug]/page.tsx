@@ -30,7 +30,7 @@ export default async function ArticlePage({
           {/* Article Header */}
           <header className="mb-8 md:mb-12">
             <div className="mb-4 flex items-center gap-2">
-              <Badge className="bg-primary/10 text-primary hover:bg-primary/20 px-2 py-0.5">
+              <Badge className="bg-primary/10 text-primary hover:bg-primary/20 px-2 py-0.5 capitalize">
                 {article.category ?? "News"}
               </Badge>
               <div className="text-muted-foreground flex items-center text-sm">

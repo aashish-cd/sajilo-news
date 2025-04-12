@@ -4,9 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { CalendarIcon } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
+import type { Article } from "~/server/db/types";
 
 type ArticleCardProps = {
-  article: any;
+  article: Article;
 };
 
 export function ArticleCard({ article }: ArticleCardProps) {
@@ -27,8 +28,8 @@ export function ArticleCard({ article }: ArticleCardProps) {
           </Badge>
           <div className="text-muted-foreground flex items-center text-sm">
             <CalendarIcon className="mr-1 h-3 w-3" />
-            <time dateTime={article.createdAt}>
-              {formatDate(article.createdAt)}
+            <time dateTime={article.createdAt.toDateString()}>
+              {formatDate(article.createdAt.toDateString())}
             </time>
           </div>
         </div>

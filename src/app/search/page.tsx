@@ -2,6 +2,7 @@ import ArticleList from "@/components/article-list";
 import Pagination from "@/components/paginations";
 import { db } from "~/server/db";
 import { searchArticles } from "~/server/queries";
+import NotFoundPage from "./not-found";
 
 export default async function SearchPage({
   searchParams,
@@ -12,6 +13,10 @@ export default async function SearchPage({
 
   const pageNo = parseInt(page || "1", 10);
   const articles = await searchArticles(query);
+
+  if (articles.length === 0) {
+    return <NotFoundPage />;
+  }
 
   return (
     <div>

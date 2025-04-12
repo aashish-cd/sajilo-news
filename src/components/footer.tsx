@@ -23,56 +23,10 @@ const Footer = () => {
               <MapPin className="h-4 w-4" />
               <span>Nepal</span>
             </div>
-            {/* <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                            <Phone className="h-4 w-4" />
-                            <span>+1 (555) 123-4567</span>
-                        </div> */}
-            {/* <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                            <Mail className="h-4 w-4" />
-                            <span>contact@newsportal.com</span>
-                        </div> */}
           </div>
 
-          {/* Quick Links */}
-          {/* <div className="space-y-4">
-                        <h4 className="font-medium text-lg">Quick Links</h4>
-                        <nav className="flex flex-col space-y-2">
-                            <Link
-                                href="/about"
-                                className="text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                                About Us
-                            </Link>
-                            <Link
-                                href="/contact"
-                                className="text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                                Contact
-                            </Link>
-                            <Link
-                                href="/privacy-policy"
-                                className="text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                                Privacy Policy
-                            </Link>
-                            <Link
-                                href="/terms-of-service"
-                                className="text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                                Terms of Service
-                            </Link>
-                            <Link
-                                href="/faq"
-                                className="text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                                FAQ
-                            </Link>
-                        </nav>
-                    </div> */}
-
-          {/* Newsletter & Social */}
           <div className="space-y-4">
-            <h4 className="text-lg font-medium">Stay Connected</h4>
+            {/* <h4 className="text-lg font-medium">Stay Connected</h4>
             <p className="text-muted-foreground">
               Subscribe to our newsletter for the latest updates.
             </p>
@@ -85,7 +39,7 @@ const Footer = () => {
               <Button type="submit" size="sm">
                 Subscribe
               </Button>
-            </form>
+            </form> */}
 
             {/* <h4 className="font-medium text-lg mt-6">Follow Us</h4>
                         <div className="flex space-x-3">
