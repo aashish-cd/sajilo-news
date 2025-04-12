@@ -10,7 +10,7 @@ export const getArticles = async () => {
 
 export const getRelatedArticles = async (title: string) => {
     const articles = await db.query.articles.findMany({
-        where: (model, { ilike }) => ilike(model.title, title),
+        where: (model, { notIlike }) => notIlike(model.title, title),
         limit: 3,
     })
     return articles;

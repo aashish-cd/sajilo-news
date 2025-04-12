@@ -8,6 +8,7 @@ import { ReadingProgressBar } from "@/components/reading-progress-bar";
 import ShareButtons from "@/components/share-buttons";
 import { formatDate } from "@/lib/utils";
 import { getArticleById } from "~/server/queries";
+import ArticleContentViewer from "~/components/article-content-viewer";
 
 export default async function ArticlePage({
   params,
@@ -60,11 +61,7 @@ export default async function ArticlePage({
           />
 
           {/* Article Content */}
-          <div
-            className="prose prose-lg dark:prose-invert mb-12 max-w-none"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
-
+          <ArticleContentViewer content={article.content} />
           {/* Article Footer */}
           <footer className="mt-8 md:mt-12">
             <Separator className="mb-8" />
