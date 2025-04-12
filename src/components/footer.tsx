@@ -1,40 +1,40 @@
-import { MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { MapPin } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
-    return (
-        <footer className="bg-background border-t">
-            <div className="container mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* About Section */}
-                    <div className="space-y-4">
-                        <h3 className="text-xl font-bold tracking-tight">
-                            Sajilo <span className="text-primary">News</span>
-                        </h3>
-                        <p className="text-muted-foreground">
-                            Your source for the latest news and updates. We
-                            deliver timely, relevant, and trustworthy
-                            information.
-                        </p>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                            <MapPin className="h-4 w-4" />
-                            <span>Nepal</span>
-                        </div>
-                        {/* <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+  return (
+    <footer className="bg-background border-t">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {/* About Section */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold tracking-tight">
+              Sajilo <span className="text-primary">News</span>
+            </h3>
+            <p className="text-muted-foreground">
+              Your source for the latest news and updates. We deliver timely,
+              relevant, and trustworthy information.
+            </p>
+            <div className="text-muted-foreground flex items-center space-x-2 text-sm">
+              <MapPin className="h-4 w-4" />
+              <span>Nepal</span>
+            </div>
+            {/* <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                             <Phone className="h-4 w-4" />
                             <span>+1 (555) 123-4567</span>
                         </div> */}
-                        {/* <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+            {/* <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                             <Mail className="h-4 w-4" />
                             <span>contact@newsportal.com</span>
                         </div> */}
-                    </div>
+          </div>
 
-                    {/* Quick Links */}
-                    {/* <div className="space-y-4">
+          {/* Quick Links */}
+          {/* <div className="space-y-4">
                         <h4 className="font-medium text-lg">Quick Links</h4>
                         <nav className="flex flex-col space-y-2">
                             <Link
@@ -70,24 +70,24 @@ const Footer = () => {
                         </nav>
                     </div> */}
 
-                    {/* Newsletter & Social */}
-                    <div className="space-y-4">
-                        <h4 className="font-medium text-lg">Stay Connected</h4>
-                        <p className="text-muted-foreground">
-                            Subscribe to our newsletter for the latest updates.
-                        </p>
-                        <form className="flex space-x-2">
-                            <input
-                                type="email"
-                                placeholder="Your email address"
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                            />
-                            <Button type="submit" size="sm">
-                                Subscribe
-                            </Button>
-                        </form>
+          {/* Newsletter & Social */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-medium">Stay Connected</h4>
+            <p className="text-muted-foreground">
+              Subscribe to our newsletter for the latest updates.
+            </p>
+            <form className="flex space-x-2">
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              />
+              <Button type="submit" size="sm">
+                Subscribe
+              </Button>
+            </form>
 
-                        {/* <h4 className="font-medium text-lg mt-6">Follow Us</h4>
+            {/* <h4 className="font-medium text-lg mt-6">Follow Us</h4>
                         <div className="flex space-x-3">
                             <Button
                                 variant="outline"
@@ -135,19 +135,17 @@ const Footer = () => {
                                 </a>
                             </Button>
                         </div> */}
-                    </div>
-                </div>
+          </div>
+        </div>
 
-                <Separator className="my-8" />
+        <Separator className="my-8" />
 
-                <div className="text-center text-sm text-muted-foreground">
-                    <p>
-                        &copy; {currentYear} Sajilo News. All rights reserved.
-                    </p>
-                </div>
-            </div>
-        </footer>
-    );
+        <div className="text-muted-foreground text-center text-sm">
+          <p>&copy; {currentYear} Sajilo News. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

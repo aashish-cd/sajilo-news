@@ -17,11 +17,6 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 
-const categories = [
-  { name: "Global", slug: "category/Global" },
-  { name: "Politics", slug: "category/Politics" },
-];
-
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -44,19 +39,6 @@ const Navbar = () => {
           <Link href="/" className="text-2xl font-bold tracking-tight">
             Sajilo<span className="text-primary"> News</span>
           </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center space-x-6 md:flex">
-            {categories.map((category) => (
-              <Link
-                key={category.slug}
-                href={`/${category.slug}`}
-                className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
-              >
-                {category.name}
-              </Link>
-            ))}
-          </nav>
 
           {/* Mobile Menu Button */}
           <Button
@@ -97,7 +79,7 @@ const Navbar = () => {
               <UserButton />
             </SignedIn>
             <SignedOut>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-4 space-x-4">
                 <SignInButton />
                 <SignUpButton />
               </div>
@@ -108,19 +90,6 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="pt-4 pb-2 md:hidden">
-            <nav className="mb-4 flex flex-col space-y-3">
-              {categories.map((category) => (
-                <Link
-                  key={category.slug}
-                  href={`/${category.slug}`}
-                  className="hover:bg-muted rounded-md px-2 py-1.5 text-sm font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {category.name}
-                </Link>
-              ))}
-            </nav>
-
             <form onSubmit={handleSearch} className="relative mb-4">
               <Input
                 type="search"
@@ -144,7 +113,7 @@ const Navbar = () => {
               <UserButton />
             </SignedIn>
             <SignedOut>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-4 space-x-2">
                 <SignInButton />
                 <SignUpButton />
               </div>

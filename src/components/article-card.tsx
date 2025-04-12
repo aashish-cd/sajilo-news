@@ -10,9 +10,6 @@ type ArticleCardProps = {
 };
 
 export function ArticleCard({ article }: ArticleCardProps) {
-  // const categoryLabel =
-  //     article.category.charAt(0).toUpperCase() + article.category.slice(1);
-
   return (
     <Card className="group flex h-full flex-col overflow-hidden">
       <div className="relative aspect-video overflow-hidden">
@@ -36,7 +33,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
           </div>
         </div>
         <h3 className="mb-1 line-clamp-2 text-xl font-bold">
-          <Link href={`/article/${article.slug}`}>{article.title}</Link>
+          <Link href={`/article/${article.id}`}>{article.title}</Link>
         </h3>
         <p className="text-muted-foreground mb-2 line-clamp-3">
           {article.excerpt}
@@ -44,7 +41,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
       </CardContent>
       <CardFooter className="px-5 pt-0 pb-5">
         <Link
-          href={`/article/${article.slug}`}
+          href={`/article/${article.id}`}
           className="text-primary text-sm font-medium hover:underline"
         >
           Read more

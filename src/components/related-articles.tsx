@@ -6,8 +6,8 @@ import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { getRelatedArticles } from "~/server/queries";
 
-export async function RelatedArticles({ id }: { id: string }) {
-  const relatedArticles = await getRelatedArticles(id);
+export async function RelatedArticles({ title }: { title: string }) {
+  const relatedArticles = await getRelatedArticles(title);
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

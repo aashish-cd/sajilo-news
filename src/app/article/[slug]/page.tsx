@@ -7,7 +7,7 @@ import { RelatedArticles } from "@/components/related-articles";
 import { ReadingProgressBar } from "@/components/reading-progress-bar";
 import ShareButtons from "@/components/share-buttons";
 import { formatDate } from "@/lib/utils";
-import { getArticleBySlug } from "~/server/queries";
+import { getArticleById } from "~/server/queries";
 
 export default async function ArticlePage({
   params,
@@ -15,7 +15,8 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const id = Number(slug);
+  const article = await getArticleById(id);
 
   if (!article) {
     return <div>Article not found</div>;
@@ -55,7 +56,7 @@ export default async function ArticlePage({
           <img
             src={article.coverImage || "/placeholder.svg"}
             alt={article.title}
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover p-4 transition-transform duration-300 group-hover:scale-105"
           />
 
           {/* Article Content */}
@@ -70,14 +71,14 @@ export default async function ArticlePage({
 
             {/* Social Sharing */}
             <ShareButtons
-              url={`/article/${article.slug}`}
+              url={`/article/${article.id}`}
               title={article.title}
             />
             <Separator className="my-8" />
 
             {/* Related Articles */}
             <h2 className="mb-6 text-2xl font-bold">Related Articles</h2>
-            <RelatedArticles id={article.slug} />
+            <RelatedArticles title={article.title} />
           </footer>
         </article>
       </main>

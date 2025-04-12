@@ -8,9 +8,9 @@ export const getArticles = async () => {
     return articles;
 }
 
-export const getRelatedArticles = async (slug: string) => {
+export const getRelatedArticles = async (title: string) => {
     const articles = await db.query.articles.findMany({
-        where: (model, { ilike }) => ilike(model.slug, slug),
+        where: (model, { ilike }) => ilike(model.title, title),
         limit: 3,
     })
     return articles;
@@ -23,9 +23,9 @@ export const searchArticles = async (query: string) => {
     return articles;
 }
 
-export const getArticleBySlug = async (slug: string) => {
+export const getArticleById = async (id: number) => {
     const article = await db.query.articles.findFirst({
-        where: (model, { eq }) => eq(model.slug, slug)
+        where: (model, { eq }) => eq(model.id, id)
     })
     return article;
 }

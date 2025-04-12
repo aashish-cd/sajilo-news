@@ -15,6 +15,8 @@ export function formatDate(dateString: string): string {
 }
 
 export function slugify(text: string): string {
+  // need to remove nepali word, and if there are valid words, then add uuid
+
   return text.split(' ').slice(0, 3).join(' ')
     .toString()
     .toLowerCase()
