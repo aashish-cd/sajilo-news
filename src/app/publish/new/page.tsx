@@ -28,7 +28,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import RichTextEditor from "@/components/rich-text-editor";
-import { slugify } from "@/lib/utils";
 import { createArticle } from "~/server/actions";
 import { UploadButton } from "~/utils/uploadthing";
 
@@ -73,11 +72,8 @@ export default function NewArticle() {
     setIsSubmitting(true);
 
     try {
-      const slug = slugify(title);
-
       await createArticle({
         title,
-        slug,
         content,
         excerpt: excerpt || title.substring(0, 150),
         coverImage,

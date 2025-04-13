@@ -39,7 +39,7 @@ export const users = createTable("users", (d) => ({
 export const articles = createTable("articles", (d) => ({
   id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
   title: d.varchar("title", { length: 255 }).notNull(),
-  slug: d.varchar("slug", { length: 255 }).notNull().unique(),
+  slug: d.varchar("slug", { length: 255 }).unique(),
   content: d.text("content").notNull(),
   excerpt: d.text("excerpt"),
   coverImage: d.varchar("cover_image", { length: 255 }),

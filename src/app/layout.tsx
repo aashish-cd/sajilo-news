@@ -1,11 +1,11 @@
 import { type ReactNode } from "react";
 import { type Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import Navbar from "@/components/navbar";
 import { Lexend } from "next/font/google";
 
 import "@/styles/globals.css";
 
+import Navbar from "@/components/navbar";
 import { Toaster } from "~/components/ui/sonner";
 import Footer from "~/components/footer";
 

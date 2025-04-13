@@ -1,14 +1,9 @@
 "use client";
 
 import type React from "react";
-
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search, Menu, X } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 import {
   SignedIn,
   SignedOut,
@@ -16,6 +11,10 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
+import { Search, Menu, X } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,7 +36,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold tracking-tight">
-            Sajilo<span className="text-primary"> News</span>
+            Sajilo <span className="text-primary"> News</span>
           </Link>
 
           {/* Mobile Menu Button */}
