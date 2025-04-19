@@ -13,7 +13,7 @@ import {
 } from "@clerk/nextjs";
 import { Search, Menu, X } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const Navbar = () => {
@@ -36,7 +36,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold tracking-tight">
-            Sajilo <span className="text-primary"> News</span>
+            Sajilo <span className="text-primary"> Articles</span>
           </Link>
 
           {/* Mobile Menu Button */}
@@ -76,6 +76,9 @@ const Navbar = () => {
             </form>
             <SignedIn>
               <UserButton />
+              <Link className={buttonVariants()} href={`/publish/new`}>
+                Publish
+              </Link>
             </SignedIn>
             <SignedOut>
               <div className="flex items-center gap-4 space-x-4">

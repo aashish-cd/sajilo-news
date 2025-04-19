@@ -126,3 +126,8 @@
     @apply bg-background text-foreground;
   }
 }
+@plugin "./typography.ts";
+
+.markdown > * {
+  all: revert;
+}

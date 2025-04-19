@@ -1,5 +1,3 @@
-import { articles, users } from "./schema";
+import { articles } from "./schema";
 
 export type Article = typeof articles.$inferSelect;
-
-export type User = typeof users.$inferSelect;

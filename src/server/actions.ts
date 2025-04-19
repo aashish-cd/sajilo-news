@@ -23,14 +23,13 @@ export async function createArticle(data: any) {
     try {
         await db.insert(articles).values({
             title: data.title,
-            slug: data.slug,
             content: data.content,
             excerpt: data.excerpt || null,
             coverImage: data.coverImage || null,
             published: data.published,
             featured: data.featured,
-            category: data.category,
-            authorId: data.authorId,
+            category: data.category || null,
+            author: data.author,
         })
 
         revalidatePath("/")

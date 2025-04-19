@@ -20,6 +20,7 @@ import {
   Quote,
   SeparatorVerticalIcon as Separator,
 } from "lucide-react";
+import { Markdown } from "tiptap-markdown";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -55,8 +56,9 @@ export default function RichTextEditor({
           class: "mx-auto my-4 rounded-md max-w-full",
         },
       }),
+      Markdown,
     ],
-    content: initialContent || "<h2>Start writing your article...</h2>",
+    content: initialContent || "",
     editorProps: {
       attributes: {
         class:
@@ -64,7 +66,7 @@ export default function RichTextEditor({
       },
     },
     onUpdate: ({ editor }) => {
-      onChange?.(editor.getHTML());
+      onChange?.(editor.storage.markdown.getMarkdown());
     },
   });
 
@@ -97,6 +99,7 @@ export default function RichTextEditor({
     <div className="rich-text-editor overflow-hidden rounded-lg border">
       <div className="bg-muted/20 flex flex-wrap items-center gap-1 border-b p-2">
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -106,6 +109,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -115,6 +119,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() =>
@@ -126,6 +131,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() =>
@@ -137,6 +143,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -146,6 +153,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
@@ -155,6 +163,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
@@ -164,6 +173,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
@@ -173,6 +183,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
@@ -183,6 +194,7 @@ export default function RichTextEditor({
         <Popover>
           <PopoverTrigger asChild>
             <Button
+              type="button"
               variant="ghost"
               size="icon"
               className={editor.isActive("link") ? "bg-muted" : ""}
@@ -198,11 +210,12 @@ export default function RichTextEditor({
                 value={linkUrl}
                 onChange={(e) => setLinkUrl(e.target.value)}
               />
-              <Button onClick={addLink}>
+              <Button type="button" onClick={addLink}>
                 {editor.isActive("link") ? "Update Link" : "Add Link"}
               </Button>
               {editor.isActive("link") && (
                 <Button
+                  type="button"
                   variant="outline"
                   onClick={() => editor.chain().focus().unsetLink().run()}
                 >
@@ -215,7 +228,7 @@ export default function RichTextEditor({
 
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="ghost" size="icon">
+            <Button type="button" variant="ghost" size="icon">
               <ImageIcon className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
@@ -227,7 +240,9 @@ export default function RichTextEditor({
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
               />
-              <Button onClick={addImage}>Add Image</Button>
+              <Button type="button" onClick={addImage}>
+                Add Image
+              </Button>
             </div>
           </PopoverContent>
         </Popover>
@@ -235,6 +250,7 @@ export default function RichTextEditor({
         <div className="mx-1 h-6 border-l"></div>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().undo().run()}
@@ -244,6 +260,7 @@ export default function RichTextEditor({
         </Button>
 
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           onClick={() => editor.chain().focus().redo().run()}

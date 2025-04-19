@@ -54,11 +54,13 @@ export default async function ArticlePage({
               {article.excerpt}
             </p>
           </header>
-          <img
-            src={article.coverImage || "/placeholder.svg"}
-            alt={article.title}
-            className="object-cover p-4 transition-transform duration-300 group-hover:scale-105"
-          />
+          {article.coverImage && (
+            <img
+              src={article.coverImage}
+              alt={article.title}
+              className="object-cover p-4 transition-transform duration-300 group-hover:scale-105"
+            />
+          )}
 
           {/* Article Content */}
           <ArticleContentViewer content={article.content} />
