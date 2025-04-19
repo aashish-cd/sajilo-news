@@ -15,11 +15,6 @@ export async function createArticle(data: any) {
         throw new Error("You must be logged in to create an article")
     }
 
-    // Verify the user is creating an article with their own ID
-    if (userId !== data.authorId) {
-        throw new Error("Unauthorized: You can only create articles as yourself")
-    }
-
     try {
         await db.insert(articles).values({
             title: data.title,

@@ -1,4 +1,4 @@
-import { CalendarIcon, Clock } from "lucide-react";
+import { CalendarIcon, Clock, UserIcon } from "lucide-react";
 import readingTime from "reading-time";
 
 import { Badge } from "@/components/ui/badge";
@@ -43,6 +43,10 @@ export default async function ArticlePage({
               <div className="text-muted-foreground flex items-center text-sm">
                 <Clock className="mr-1 h-3 w-3" />
                 <span>{readingTime(article.content).text}</span>
+              </div>
+              <div className="text-muted-foreground flex items-center text-sm">
+                <UserIcon className="mr-1 h-3 w-3" />
+                <span>{article.author}</span>
               </div>
             </div>
 

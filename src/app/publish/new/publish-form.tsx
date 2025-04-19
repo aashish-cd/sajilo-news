@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import Form from "next/form";
-import ReactMarkdown from "react-markdown";
 
 import {
   Card,
@@ -29,15 +28,14 @@ import {
 import RichTextEditor from "~/components/rich-text-editor";
 import { UploadButton } from "~/utils/uploadthing";
 import { createArticle } from "~/server/actions";
-import { ImageIcon, Loader2, Save } from "lucide-react";
+import { ImageIcon, Save } from "lucide-react";
 
 const PublishForm = () => {
   const [coverImage, setCoverImage] = useState("");
   const [content, setContent] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const { user, isLoaded } = useUser();
-
-  console.log("user", user);
+  const { user } = useUser();
 
   // Mock categories for demo purposes
   const categories = [
@@ -49,18 +47,43 @@ const PublishForm = () => {
     <Form
       action={async (e) => {
         "server only";
-        console.log("action from server", e.get("featured"));
-        await createArticle({
-          coverImage,
-          authorId: user?.id,
-          author: user?.fullName,
-          title: e.get("title"),
-          excerpt: e.get("excerpt"),
-          category: e.get("category"),
-          featured: e.get("featured") ?? false,
-          content,
-          // TODO: add images
-        });
+        const title = e.get("title");
+        const excerpt = e.get("excerpt");
+        const category = e.get("category");
+        if (!title?.toString().trim() || !content.trim()) {
+          toast.error("Validation Error", {
+            description: "Please fill in all required fields",
+          });
+          return;
+        }
+        try {
+          setIsSubmitting(true);
+          await createArticle({
+            coverImage,
+            author: user?.fullName,
+            title,
+            excerpt,
+            category,
+            featured: e.get("featured") ?? false,
+            content,
+          });
+          toast.success("Success", {
+            description: "Article created successfully",
+          });
+
+          router.push("/");
+          router.refresh();
+        } catch (error) {
+          console.error("Failed to create article:", error);
+          toast.error("Error", {
+            description:
+              error instanceof Error
+                ? error.message
+                : "Failed to create article",
+          });
+        } finally {
+          setIsSubmitting(false);
+        }
       }}
     >
       <div className="mb-6 grid gap-6">
@@ -73,7 +96,10 @@ const PublishForm = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="title">Title</Label>
+              <Label htmlFor="title">
+                Title
+                <span className="text-xs text-red-500">* required</span>
+              </Label>
               <Input
                 id="title"
                 name="title"
@@ -94,13 +120,13 @@ const PublishForm = () => {
 
             <div className="space-y-2">
               <Label htmlFor="category">Category</Label>
-              <Select name="category">
+              <Select name="category" defaultValue={categories[0]?.name}>
                 <SelectTrigger id="category">
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((cat) => (
-                    <SelectItem key={cat.id} value={cat.id}>
+                    <SelectItem key={cat.name} value={cat.name}>
                       {cat.name}
                     </SelectItem>
                   ))}
@@ -120,14 +146,7 @@ const PublishForm = () => {
                 />
 
                 {coverImage && (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="icon"
-                    onClick={() => window.open(coverImage, "_blank")}
-                  >
-                    <ImageIcon className="h-4 w-4" />
-                  </Button>
+                  <img src={coverImage} alt="Cover Image" className="h-36" />
                 )}
               </div>
             </div>
@@ -143,7 +162,10 @@ const PublishForm = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Article Content</CardTitle>
+            <CardTitle>
+              Article Content{" "}
+              <span className="text-xs text-red-500">* required</span>
+            </CardTitle>
             <CardDescription>
               Write and format your article content
             </CardDescription>
