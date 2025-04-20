@@ -1,6 +1,5 @@
 import React from "react";
 import { getArticles } from "~/server/queries";
-import { deleteArticle } from "~/server/actions";
 import AdminArticleList from "./admin-article-list";
 
 const AdminPage = async () => {
