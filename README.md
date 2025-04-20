@@ -19,6 +19,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 [x] Develop the article creation interface with rich text editor and image upload functionality [uploadthings for images]
 [x] Implement the article publishing workflow
 [x] Create the frontend homepage with featured articles, latest news, and category navigation
-[ ] Build analytics dashboard for tracking article performance and user engagement
+[x] Create the administrative dashboard for content moderation and user management
+
+[ ] Build analytics dashboard for tracking article performance and user engagement [posthog]
 [ ] Implement SEO optimization including meta tags, sitemaps, and URL structure
-[ ] Create the administrative dashboard for content moderation and user management

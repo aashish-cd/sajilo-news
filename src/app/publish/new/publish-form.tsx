@@ -64,7 +64,7 @@ const PublishForm = () => {
             title,
             excerpt,
             category,
-            featured: e.get("featured") ?? false,
+            featured: e.get("featured") === "on" ? true : false,
             content,
           });
           toast.success("Success", {
