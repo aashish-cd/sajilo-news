@@ -54,6 +54,11 @@ export default async function ArticlePage({
               {article.title}
             </h1>
 
+            <ShareButtons
+              url={`/article/${article.id}`}
+              title={article.title}
+            />
+            <Separator className="my-8" />
             <p className="text-muted-foreground mb-6 text-xl">
               {article.excerpt}
             </p>

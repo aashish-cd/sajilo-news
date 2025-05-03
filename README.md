@@ -14,12 +14,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## To Do
 
-[x] Set up the database infrastructure using the Prisma schema and configure PostgreSQL [vercel postgres]
+[x] Set up the database infrastructure using the drizzle schema and configure PostgreSQL [neon db]
+
 [x] Implement user authentication system with registration, login, and role-based permissions [clerk]
+
 [x] Develop the article creation interface with rich text editor and image upload functionality [uploadthings for images]
+
 [x] Implement the article publishing workflow
+
 [x] Create the frontend homepage with featured articles, latest news, and category navigation
+
 [x] Create the administrative dashboard for content moderation and user management
 
 [ ] Build analytics dashboard for tracking article performance and user engagement [posthog]
+
 [ ] Implement SEO optimization including meta tags, sitemaps, and URL structure

@@ -1,13 +1,13 @@
 import React from "react";
 import { SignOutButton } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 
 import AdminPage from "./admin-page";
 
 const page = async () => {
-  const user = await auth();
-  // @ts-ignore
-  if (user.sessionClaims?.metadata?.admin) return <AdminPage />;
+  const user = await currentUser();
+
+  if (user?.publicMetadata.admin) return <AdminPage />;
   else
     return (
       <div>
