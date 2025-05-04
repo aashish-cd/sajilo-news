@@ -19,8 +19,10 @@ export function ArticleCard({ article }: ArticleCardProps) {
           <Image
             src={article.coverImage || "/test.png"}
             alt={article.title}
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-            fill
+            className="w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            // fill
+            height={200}
+            width={200}
           />
         </div>
         <CardContent className="flex-1 p-5">

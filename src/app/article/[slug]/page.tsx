@@ -9,6 +9,7 @@ import ShareButtons from "@/components/share-buttons";
 import { formatDate } from "@/lib/utils";
 import { getArticleById } from "~/server/queries";
 import ArticleContentViewer from "~/components/article-content-viewer";
+import Image from "next/image";
 
 export default async function ArticlePage({
   params,
@@ -64,10 +65,12 @@ export default async function ArticlePage({
             </p>
           </header>
           {article.coverImage && (
-            <img
+            <Image
               src={article.coverImage}
               alt={article.title}
               className="object-cover p-4 transition-transform duration-300 group-hover:scale-105"
+              height={800}
+              width={800}
             />
           )}
 

@@ -9,8 +9,12 @@ const config = {
   images: {
     remotePatterns: [
       {
+        protocol: "http",
+        hostname: "*",
+      },
+      {
         protocol: "https",
-        hostname: "*.ufs.sh",
+        hostname: "*",
       },
     ],
   },
