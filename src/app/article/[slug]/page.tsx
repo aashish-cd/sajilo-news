@@ -25,7 +25,7 @@ export default async function ArticlePage({
   const { slug } = await params;
   const id = Number(slug);
   const article = await getCachedArticle(id);
-
+  console.log("article", article);
   if (!article) {
     return <div>Article not found</div>;
   }
@@ -44,7 +44,7 @@ export default async function ArticlePage({
               <div className="text-muted-foreground flex items-center text-sm">
                 <CalendarIcon className="mr-1 h-3 w-3" />
                 <time dateTime="2023-04-01">
-                  {formatDate(article.createdAt.toDateString())}
+                  {formatDate(new Date(article.createdAt).toDateString())}
                 </time>
               </div>
               <div className="text-muted-foreground flex items-center text-sm">
