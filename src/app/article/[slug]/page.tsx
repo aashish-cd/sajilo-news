@@ -10,6 +10,12 @@ import { formatDate } from "@/lib/utils";
 import { getArticleById } from "~/server/queries";
 import ArticleContentViewer from "~/components/article-content-viewer";
 import Image from "next/image";
+import { unstable_cache } from "next/cache";
+
+const getCachedArticle = unstable_cache(
+  async (id) => getArticleById(id),
+  ["article"],
+);
 
 export default async function ArticlePage({
   params,
@@ -18,7 +24,7 @@ export default async function ArticlePage({
 }) {
   const { slug } = await params;
   const id = Number(slug);
-  const article = await getArticleById(id);
+  const article = await getCachedArticle(id);
 
   if (!article) {
     return <div>Article not found</div>;
