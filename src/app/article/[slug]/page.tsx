@@ -25,7 +25,7 @@ export default async function ArticlePage({
   const { slug } = await params;
   const id = Number(slug);
   const article = await getCachedArticle(id);
-  console.log("article", article);
+
   if (!article) {
     return <div>Article not found</div>;
   }
