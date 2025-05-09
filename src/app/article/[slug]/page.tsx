@@ -11,6 +11,7 @@ import ShareButtons from "@/components/share-buttons";
 import { formatDate } from "@/lib/utils";
 import { getArticleById } from "~/server/queries";
 import ArticleContentViewer from "~/components/article-content-viewer";
+import NotFound from "~/app/not-found";
 
 export default async function ArticlePage({
   params,
@@ -18,7 +19,12 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
   const id = Number(slug);
+
+  if (isNaN(id)) {
+    return <NotFound />;
+  }
 
   const article = await unstable_cache(
     async () => await getArticleById(id),
@@ -26,7 +32,7 @@ export default async function ArticlePage({
   )();
 
   if (!article) {
-    return <div>Article not found</div>;
+    return <NotFound />;
   }
 
   return (
