@@ -1,5 +1,7 @@
 import { CalendarIcon, Clock, UserIcon } from "lucide-react";
 import readingTime from "reading-time";
+import Image from "next/image";
+import { unstable_cache } from "next/cache";
 
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -9,13 +11,6 @@ import ShareButtons from "@/components/share-buttons";
 import { formatDate } from "@/lib/utils";
 import { getArticleById } from "~/server/queries";
 import ArticleContentViewer from "~/components/article-content-viewer";
-import Image from "next/image";
-import { unstable_cache } from "next/cache";
-
-const getCachedArticle = unstable_cache(
-  async (id) => getArticleById(id),
-  ["article"],
-);
 
 export default async function ArticlePage({
   params,
@@ -24,7 +19,11 @@ export default async function ArticlePage({
 }) {
   const { slug } = await params;
   const id = Number(slug);
-  const article = await getCachedArticle(id);
+
+  const article = await unstable_cache(
+    async () => await getArticleById(id),
+    [`${id}`],
+  )();
 
   if (!article) {
     return <div>Article not found</div>;
