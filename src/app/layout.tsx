@@ -12,11 +12,12 @@ import { PostHogProvider } from "@/app/providers";
 
 type LayoutProps = {
   children: ReactNode;
+  test: ReactNode;
 };
 
 const inter = Lexend({ subsets: ["latin"] });
 
-export default function RootLayout({ children }: LayoutProps) {
+export default function RootLayout({ children, test }: LayoutProps) {
   return (
     <ClerkProvider>
       <html lang="en">
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps) {
           <PostHogProvider>
             <Navbar />
             <main className="container mx-auto px-4 py-8">{children}</main>
+            {test}
             <Footer />
             <Toaster />
           </PostHogProvider>

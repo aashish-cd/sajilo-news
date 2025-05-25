@@ -14,6 +14,8 @@ import { formatDate } from "@/lib/utils";
 import { getArticleById } from "~/server/queries";
 import ArticleContentViewer from "~/components/article-content-viewer";
 import NotFound from "~/app/not-found";
+import { Dialog, DialogContent } from "~/components/ui/dialog";
+import Modal from "./modal";
 
 export default async function ArticlePage({
   params,
@@ -38,7 +40,7 @@ export default async function ArticlePage({
   }
 
   return (
-    <>
+    <Modal>
       <ReadingProgressBar />
       <main className="bg-background min-h-screen">
         <article className="container mx-auto max-w-4xl px-4 py-8 md:py-12">
@@ -106,6 +108,6 @@ export default async function ArticlePage({
           </footer>
         </article>
       </main>
-    </>
+    </Modal>
   );
 }

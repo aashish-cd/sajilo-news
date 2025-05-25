@@ -14,7 +14,7 @@ type ArticleCardProps = {
 export function ArticleCard({ article }: ArticleCardProps) {
   return (
     <Card className="group flex h-full flex-col overflow-hidden">
-      <Link href={`/article/${article.id}`}>
+      <Link href={`/article/${article.id}`} passHref>
         <div className="relative aspect-video overflow-hidden">
           <Image
             src={article.coverImage || "/test.png"}

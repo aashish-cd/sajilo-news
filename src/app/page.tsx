@@ -1,4 +1,5 @@
 import ArticleList from "@/components/article-list";
+import Link from "next/link";
 import { getArticles } from "~/server/queries";
 
 export const revalidate = 5;
