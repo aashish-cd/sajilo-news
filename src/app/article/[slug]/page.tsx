@@ -15,6 +15,8 @@ import { getArticleById } from "~/server/queries";
 import ArticleContentViewer from "~/components/article-content-viewer";
 import NotFound from "~/app/not-found";
 
+export const revalidate = 60;
+
 export default async function ArticlePage({
   params,
 }: {
