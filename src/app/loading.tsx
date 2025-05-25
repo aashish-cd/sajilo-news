@@ -7,7 +7,7 @@ const loading = () => {
     <div>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {[...Array(10)].map((_, i) => (
-          <Card className="group flex h-full flex-col overflow-hidden">
+          <Card key={i} className="group flex h-full flex-col overflow-hidden">
             <Skeleton className="relative aspect-video overflow-hidden" />
 
             <Skeleton className="w-full object-cover transition-transform duration-300 group-hover:scale-105" />

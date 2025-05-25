@@ -1,9 +1,8 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import Modal from "./(.)article/[slug]/modal";
 
 export default function Loading() {
   return (
-    <Modal>
+    <>
       <div className="mx-auto w-full">
         {/* Article Content */}
         <main className="container mx-auto px-4 py-8">
@@ -42,6 +41,6 @@ export default function Loading() {
           </div>
         </main>
       </div>
-    </Modal>
+    </>
   );
 }
