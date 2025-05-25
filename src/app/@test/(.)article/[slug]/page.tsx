@@ -86,6 +86,7 @@ export default async function ArticlePage({
               className="object-cover p-4 transition-transform duration-300 group-hover:scale-105"
               height={800}
               width={800}
+              id="cover-image"
             />
           )}
 

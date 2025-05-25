@@ -11,7 +11,7 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
   };
   return (
     <Dialog defaultOpen onOpenChange={onClose}>
-      <DialogContent className="h-full min-w-[90vw] overflow-y-scroll">
+      <DialogContent className="h-full w-full min-w-[90vw] overflow-y-scroll">
         {children}
       </DialogContent>
     </Dialog>

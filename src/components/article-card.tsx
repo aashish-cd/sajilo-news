@@ -23,6 +23,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
             // fill
             height={200}
             width={200}
+            id="cover-image"
           />
         </div>
         <CardContent className="flex-1 p-5">
