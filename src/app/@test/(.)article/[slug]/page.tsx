@@ -102,10 +102,6 @@ export default async function ArticlePage({
               title={article.title}
             />
             <Separator className="my-8" />
-
-            {/* Related Articles */}
-            <h2 className="mb-6 text-2xl font-bold">Related Articles</h2>
-            <RelatedArticles title={article.title} />
           </footer>
         </article>
       </main>
