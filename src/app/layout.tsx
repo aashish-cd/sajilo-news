@@ -24,8 +24,10 @@ export default function RootLayout({ children, test }: LayoutProps) {
         <body className={inter.className}>
           <PostHogProvider>
             <Navbar />
-            <main className="container mx-auto px-4 py-8">{children}</main>
-            {test}
+            <main className="container mx-auto px-4 py-8">
+              {children}
+              {test}
+            </main>
             <Footer />
             <Toaster />
           </PostHogProvider>
