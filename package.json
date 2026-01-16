@@ -43,6 +43,7 @@
     "posthog-js": "^1.239.1",
     "posthog-node": "^4.17.1",
     "react": "^19.0.0",
+    "react-documents": "^1.2.1",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "react-share": "^5.2.2",
